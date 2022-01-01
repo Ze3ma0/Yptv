@@ -288,9 +288,6 @@ type JSONStringSlice struct {
 
 // MarshalJSON returns b as the JSON encoding of b.
 func (b JSONStringSlice) MarshalJSON() ([]byte, error) {
-	if b == nil {
-		return []byte("null"), nil
-	}
 	if !b.SingleString {
 		return json.Marshal(b.Slice)
 	}
@@ -299,9 +296,6 @@ func (b JSONStringSlice) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON sets *b to a copy of data.
 func (b *JSONStringSlice) UnmarshalJSON(data []byte) error {
-	if b == nil {
-		return errors.New("json.JSONStringSlice: UnmarshalJSON on nil pointer")
-	}
 	if data[0] == '"' {
 		data = append([]byte(`[`), data...)
 		data = append(data, []byte(`]`)...)
